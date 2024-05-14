@@ -4,9 +4,7 @@ describe('Home page tests', () => {
 
     beforeEach(() => {
         cy.visit('http://localhost:8081')
-        cy.get('input[name=username]').type(Cypress.env('username'))
-        cy.get('input[name=password]').type(Cypress.env('password'))
-        cy.get('.btn-primary').click()
+        cy.login(Cypress.env('username'), Cypress.env('password'))
     })
 
     it('should display at least one user', () => {
