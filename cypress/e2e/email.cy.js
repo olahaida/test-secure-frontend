@@ -5,7 +5,6 @@ import { getRandomEmail } from "../generators/emailGenerator"
 describe('Email page tests', () => {
 
     beforeEach(() => {
-        cy.visit('http://localhost:8081')
         cy.login(Cypress.env('username'), Cypress.env('password'))
         cy.get('li').last().find('.email').click()
     })

@@ -1,5 +1,22 @@
 Cypress.Commands.add('login', (username, password) => {
-    cy.get('input[name=username]').type(username)
-    cy.get('input[name=password]').type(password)
-    cy.get('.btn-primary').click()
+    // Te 3 akcje robi przeglądarka i chcemy je wykonać z poziomu kodu testu Cypressowego
+
+    // 1. Wysłanie requestu logowania (taki sam jak w login.api.cy.js)
+    cy.request({
+        method: 'POST',
+        url: 'http://localhost:4001/users/signin',
+        body: {
+            username: Cypress.env('username'),
+            password: Cypress.env('password'),
+        },
+    }).then((response) => {
+        expect(response.status).to.equal(200)
+        // 2. Ustawić token z odpowiedzi jako ciastko o nazwie token
+        cy.setCookie('token', response.body.token)
+        // 3. Ustawić odpowiedź w localStorage jak "spłaszczony" JSON
+        localStorage.setItem('user', JSON.stringify(response.body))
+    })
+
+    // 4. Wchodzimy na stronę główną frontendu i zakładamy ze powinniśmy być zalogowani
+    cy.visit('http://localhost:8081')
 })
