@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
 
-import { generateRandomString } from "../../generators/random"
-
 describe('Test Arena messages page tests', () => {
 
     beforeEach(() => {
