@@ -1,3 +1,5 @@
+import { generateRandomString } from "./random"
+
 export const getRandomUser = () => {
     return {
         firstName: generateRandomString(5),
@@ -7,8 +9,3 @@ export const getRandomUser = () => {
         email: `${generateRandomString(4)}@gmail.com`
     }
 }
-
-const generateRandomString = (length) => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
-};
