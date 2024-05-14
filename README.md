@@ -1,3 +1,14 @@
+## Project setup
+
+Create `cypress.env.json` file with your credentials.
+
+```commandline
+{
+    "username": "YOUR_USERNAME",
+    "password": "YOUR_PASSWORD"
+}
+```
+
 ## Local run
 
 ```commandline
