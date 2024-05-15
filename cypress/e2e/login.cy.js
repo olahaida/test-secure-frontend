@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { loginPage } from "../pages/loginPage"
+
 describe('Login page tests', () => {
 
     beforeEach(() => {
@@ -7,18 +9,18 @@ describe('Login page tests', () => {
     })
 
     it('should successfully login', () => {
-        cy.get('input[name=username]').type(Cypress.env('username'))
-        cy.get('input[name=password]').type(Cypress.env('password'))
-        cy.get('.btn-primary').click()
+        // when
+        loginPage.attemptLogin(Cypress.env('username'), Cypress.env('password'))
 
+        // then
         cy.get('h1').should('contain.text', 'Slawomir')
     })
 
     it('should display incorrect credentials message on failed login', () => {
-        cy.get('input[name=username]').type('wrong')
-        cy.get('input[name=password]').type('wrong')
-        cy.get('.btn-primary').click()
+        // when
+        loginPage.attemptLogin('wrong', 'wrong')
 
+        // then
         cy.get('.alert').should('have.text', 'Invalid username/password supplied')
     })
 

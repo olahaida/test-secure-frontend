@@ -28,4 +28,12 @@ describe('Home page tests', () => {
 
         cy.url().should('contain', '/add-user')
     })
+
+    it('should delete user', () => {
+        cy.get('li').contains(`${user.firstName} ${user.lastName}`).find('.delete').click()
+
+        cy.get('li').contains(`${user.firstName} ${user.lastName}`).should('not.exist')
+    })
+
+
 })
