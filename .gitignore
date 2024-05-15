@@ -7,6 +7,8 @@ allure-results/
 
 .idea
 cypress.env.json
+cypress/videos
+cypress/downloads
 
 # Runtime data
 pids
