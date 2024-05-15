@@ -25,20 +25,30 @@ describe('Login page tests', () => {
     })
 
     it('should navigate to the Register page and verify the URL and header', () => {
-        cy.get('.btn-link').click();
+        // when
+        loginPage.clickRegister();
+
+        // then
         cy.url().should('contain', '/register');
         cy.get('h2').contains('Register').should('be.visible')
     });
 
     it('should display validation messages for empty fields', () => {
         // when
-        cy.get('button.btn-primary').click()
-
+        loginPage.clickLogin()
+        
         // then
-        cy.get('input[name=username]').should('have.class', 'is-invalid')
-        cy.get('input[name=username]').siblings('.invalid-feedback').should('contain', 'Required field length is 4 or more')
-        cy.get('input[name=password]').should('have.class', 'is-invalid')
-        cy.get('input[name=password]').siblings('.invalid-feedback').should('contain', 'Required field length is 4 or more')
+        assertValidationErrors()
     });
 
 })
+
+const assertValidationErrors = () => {
+    cy.get(loginPage.selectors.usernameInput).should('have.class', 'is-invalid')
+    cy.get(loginPage.selectors.usernameInput).siblings('.invalid-feedback')
+        .should('contain', 'Required field length is 4 or more')
+    cy.get(loginPage.selectors.passwordInput).should('have.class', 'is-invalid')
+    cy.get(loginPage.selectors.passwordInput).siblings('.invalid-feedback')
+        .should('contain', 'Required field length is 4 or more')
+
+}
