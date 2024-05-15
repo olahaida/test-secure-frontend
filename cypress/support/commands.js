@@ -6,8 +6,8 @@ Cypress.Commands.add('login', (username, password) => {
         method: 'POST',
         url: 'http://localhost:4001/users/signin',
         body: {
-            username: Cypress.env('username'),
-            password: Cypress.env('password'),
+            username: username,
+            password: password,
         },
     }).then((response) => {
         expect(response.status).to.equal(200)
