@@ -21,7 +21,7 @@ describe('Edit page tests', () => {
         cy.get("[name=roles").should('have.value', user.roles.toString()).should('have.attr', 'disabled')
     })
 
-    it.only('should successfully edit user', () => {
+    it('should successfully edit user', () => {
         // given
         const newUser = getRandomUser()
 
