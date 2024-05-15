@@ -20,3 +20,13 @@ Cypress.Commands.add('login', (username, password) => {
     // 4. Wchodzimy na stronę główną frontendu i zakładamy ze powinniśmy być zalogowani
     cy.visit('http://localhost:8081')
 })
+
+Cypress.Commands.add('register', (user) => {
+    cy.request({
+        method: 'POST',
+        url: 'http://localhost:4001/users/signup',
+        body: user,
+    }).then((response) => {
+        expect(response.status).to.equal(201)
+    })
+})
