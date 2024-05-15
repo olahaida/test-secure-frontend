@@ -13,6 +13,18 @@ describe('Edit page tests', () => {
         cy.get('li').contains(`${user.firstName} ${user.lastName}`).find('.edit').click()
     })
 
+    afterEach(() => {
+        cy.get('@token').then((token) => {
+            cy.request({
+                method: 'DELETE',
+                url: `http://localhost:4001/users/${user.username}`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+        })
+    })
+
     it('should correctly autocomplete all fields', () => {
         cy.get('[name=firstName]').should('have.value', user.firstName).should('not.have.attr', 'disabled')
         cy.get('[name=lastName]').should('have.value', user.lastName).should('not.have.attr', 'disabled')

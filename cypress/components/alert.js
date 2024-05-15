@@ -6,6 +6,6 @@ export const alertComponent = {
 
     verifyError: (message) => {
         cy.get('.alert-danger').should('have.text', message)
-    },
+    }
 
 }
