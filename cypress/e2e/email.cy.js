@@ -1,11 +1,14 @@
 /// <reference types="cypress" />
 
 import { getRandomEmail } from "../generators/emailGenerator"
+import { getRandomUser } from "../generators/userGenerator"
 
 describe('Email page tests', () => {
 
     beforeEach(() => {
-        cy.login(Cypress.env('username'), Cypress.env('password'))
+        const user = getRandomUser()
+        cy.register(user)
+        cy.login(user.username, user.password)
         cy.get('li').last().find('.email').click()
     })
 
