@@ -36,6 +36,23 @@ describe('Edit page tests', () => {
         cy.get('li').contains(`${newUser.firstName} ${newUser.lastName}`).should('exist')
         cy.get('li').contains(`${user.firstName} ${user.lastName}`).should('not.exist')
         cy.url().should('eq', 'http://localhost:8081/')
+        // asercja backendowa czyli sprawdzamy ze dane faktycznie sie zapisaly po stronie serwera
+        cy.get('@token').then((token) => {
+            cy.request({
+                method: 'GET',
+                url: `http://localhost:4001/users/${user.username}`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response) => {
+                expect(response.body.firstName).to.equal(newUser.firstName)
+                expect(response.body.lastName).to.equal(newUser.lastName)
+                expect(response.body.email).to.equal(newUser.email)
+
+                expect(response.body.roles).to.deep.equal(user.roles)
+                expect(response.body.username).to.equal(user.username)
+            })
+        })
     })
 
 })

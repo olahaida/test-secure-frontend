@@ -15,6 +15,7 @@ Cypress.Commands.add('login', (username, password) => {
         cy.setCookie('token', response.body.token)
         // 3. Ustawić odpowiedź w localStorage jak "spłaszczony" JSON
         localStorage.setItem('user', JSON.stringify(response.body))
+        cy.wrap(response.body.token).as('token')
     })
 
     // 4. Wchodzimy na stronę główną frontendu i zakładamy ze powinniśmy być zalogowani
