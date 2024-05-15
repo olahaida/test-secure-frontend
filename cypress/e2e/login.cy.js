@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+import { alertComponent } from "../components/alert"
 import { loginPage } from "../pages/loginPage"
 
 describe('Login page tests', () => {
@@ -21,7 +22,7 @@ describe('Login page tests', () => {
         loginPage.attemptLogin('wrong', 'wrong')
 
         // then
-        cy.get('.alert').should('have.text', 'Invalid username/password supplied')
+        alertComponent.verifyError('Invalid username/password supplied')
     })
 
     it('should navigate to the Register page and verify the URL and header', () => {

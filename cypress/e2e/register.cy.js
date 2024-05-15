@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+import { alertComponent } from "../components/alert";
 import { getRandomUser, getRandomUserWithUsername } from "../generators/userGenerator";
 import { registerPage } from "../pages/registerPage";
 
@@ -17,7 +18,7 @@ describe('Register page tests', () => {
         registerPage.attemptRegister(adminUser)
 
         // alert
-        cy.get('.alert.alert-danger').should('contain', 'Username is already in use');
+        alertComponent.verifyError('Username is already in use');
     })
 
     it('should successfully register', () => {
@@ -28,7 +29,7 @@ describe('Register page tests', () => {
         registerPage.attemptRegister(user)
 
         // then
-        cy.get('.alert.alert-success').should('contain', 'Registration successful');
+        alertComponent.verifySuccess('Registration successful');
         cy.url().should('contain', '/login');
     })
 
