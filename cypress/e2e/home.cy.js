@@ -4,8 +4,10 @@ import { getRandomUser } from "../generators/userGenerator"
 
 describe('Home page tests', () => {
 
+    let user
+
     beforeEach(() => {
-        const user = getRandomUser()
+        user = getRandomUser()
         cy.register(user)
         cy.login(user.username, user.password)
     })

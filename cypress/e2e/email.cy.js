@@ -5,11 +5,17 @@ import { getRandomUser } from "../generators/userGenerator"
 
 describe('Email page tests', () => {
 
+    let user
+
     beforeEach(() => {
-        const user = getRandomUser()
+        user = getRandomUser()
         cy.register(user)
         cy.login(user.username, user.password)
-        cy.get('li').last().find('.email').click()
+        cy.get('li').contains(`${user.firstName} ${user.lastName}`).find('.email').click()
+    })
+
+    it('should correctly autocomplete email field', () => {
+        cy.get('[name=email]').should('have.value', user.email).should('have.attr', 'disabled')
     })
 
     it('should send email to user', () => {
