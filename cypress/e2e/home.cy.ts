@@ -1,8 +1,12 @@
 /// <reference types="cypress" />
 
+import { getRandomUser } from "../generators/userGenerator"
+
 describe('home page tests', () => {
   beforeEach(() => {
-    cy.login('admin', 'admin')
+    const user = getRandomUser()
+    cy.register(user)
+    cy.login(user.username, user.password)
   })
 
   afterEach(() => {
@@ -10,10 +14,6 @@ describe('home page tests', () => {
       cy.log(`${token}`)
     })
   })
-
-  // afterEach(function () {
-  //   cy.log(this.jwtToken);
-  // })
 
   it('should display at least one user', () => {
     cy.get('li').should('have.length.at.least', 1)
