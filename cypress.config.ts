@@ -5,6 +5,7 @@ export default defineConfig({
     env: {
       isMobile: false,
     },
+    baseUrl: 'http://localhost:8081',
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },

@@ -28,7 +28,7 @@ describe('Edit page tests', () => {
         cy.get("input[name='roles']").should('have.value', user.roles.join(','));
     })
 
-    it.only('should successfully edit an user', () => {
+    it('should successfully edit an user', () => {
         // given
         const newUser = getRandomUser()
 

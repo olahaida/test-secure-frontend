@@ -1,35 +1,38 @@
 /// <reference types="cypress" />
 
+import { alertComponent } from "../../components/alert"
 import { getRandomUser } from "../../generators/userGenerator"
+import { signUpMocks } from "../../mocks/postSignUp"
+import { registerPage } from "../../pages/registerPageObject"
 
 describe('register page tests in isolation', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:8081/register')
+        cy.visit('/register')
     })
 
     it('should successfully register', () => {
         // given
         const user = getRandomUser()
-        cy.intercept('POST', '**/users/signup', (req) => {
-            req.reply({
-                statusCode: 201,
-                body: {
-                    token: 'fakeToken'
-                },
-            })
-        })
+        signUpMocks.success()
 
         // when
-        cy.get("input[name='username']").type(user.username);
-        cy.get("input[name='password']").type(user.password);
-        cy.get("input[name='firstName']").type(user.firstName)
-        cy.get("input[name='lastName']").type(user.lastName)
-        cy.get("input[name='email']").type(user.email)
-        cy.get('.btn-primary').click()
+        registerPage.attemptRegister(user)
 
         // then
-        cy.get('.alert-success').should('have.text', 'Registration successful')
+        alertComponent.verifySuccess('Registration successful')
+    })
 
+    it('should fail to login if user already exists', () => {
+         // given
+         const user = getRandomUser()
+         const errorMessage = "Username is already in use"
+         signUpMocks.usernameExists(errorMessage)
+ 
+         // when
+         registerPage.attemptRegister(user)
+ 
+         // then
+         alertComponent.verifyFailure(errorMessage)
     })
 
 })
