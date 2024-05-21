@@ -16,10 +16,20 @@ Cypress.Commands.add('login', (username, password) => {
 })
 
 Cypress.Commands.add('register', (user) => {
-    cy.request({
+    return cy.request({
         method: 'POST',
         url: 'http://localhost:4001/users/signup',
         body: user
+    })
+})
+
+Cypress.Commands.add('deleteUser', (username, token) => {
+    cy.request({
+        method: 'DELETE',
+        url: `http://localhost:4001/users/${username}`,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
     })
 })
 

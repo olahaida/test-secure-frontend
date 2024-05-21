@@ -1,17 +1,20 @@
 /// <reference types="cypress" />
 
 import { getRandomUser } from "../generators/userGenerator"
+import { User } from "../types/user"
 
 describe('home page tests', () => {
+  let user: User
+
   beforeEach(() => {
-    const user = getRandomUser()
+    user = getRandomUser()
     cy.register(user)
     cy.login(user.username, user.password)
   })
 
   afterEach(() => {
     cy.get('@jwtToken').then((token) => {
-      cy.log(`${token}`)
+      cy.deleteUser(user.username, `${token}`)
     })
   })
 
