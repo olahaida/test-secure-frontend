@@ -5,6 +5,12 @@ describe('home page tests', () => {
     cy.login('admin', 'admin')
   })
 
+  afterEach(() => {
+    cy.get('@jwtToken').then((token) => {
+      cy.log(`${token}`)
+    })
+  })
+
   it('should display at least one user', () => {
     cy.get('li').should('have.length.at.least', 1)
   })
