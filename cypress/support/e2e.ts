@@ -1,4 +1,5 @@
 import './commands'
+import 'allure-cypress/commands'
 
 beforeEach(() => {
     if (Cypress.env('isMobile')) {
