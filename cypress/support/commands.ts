@@ -11,7 +11,7 @@ Cypress.Commands.add('login', (username, password) => {
         cy.setCookie('token', response.body.token)
         cy.wrap(response.body.token).as('jwtToken')
     })
-    
+
     cy.visit('http://localhost:8081')
 })
 
@@ -26,6 +26,16 @@ Cypress.Commands.add('register', (user) => {
 Cypress.Commands.add('deleteUser', (username, token) => {
     cy.request({
         method: 'DELETE',
+        url: `http://localhost:4001/users/${username}`,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+})
+
+Cypress.Commands.add('getUserDetails', (username, token) => {
+    return cy.request({
+        method: 'GET',
         url: `http://localhost:4001/users/${username}`,
         headers: {
             Authorization: `Bearer ${token}`
