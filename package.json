@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "license": "MIT",
     "scripts": {
+        "cypress-mobile": "cypress run --env isMobile=true --headed --browser chrome",
         "build": "webpack --mode production",
         "startmac": "export NODE_OPTIONS='--dns-result-order=ipv4first' && webpack-dev-server --host localhost --open --port 8081",
         "start": "set NODE_OPTIONS='--dns-result-order=ipv4first' && webpack-dev-server --host localhost --open --port 8081"

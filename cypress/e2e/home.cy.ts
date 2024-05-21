@@ -2,10 +2,7 @@
 
 describe('home page tests', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:8081')
-    cy.get('[name=username]').type('admin')
-    cy.get('[name=password]').type('admin')
-    cy.get('.btn-primary').click()
+    cy.login('admin', 'admin')
   })
 
   it('should display at least one user', () => {
