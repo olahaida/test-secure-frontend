@@ -2,6 +2,7 @@ import { defineConfig } from "cypress";
 import { allureCypress } from "allure-cypress/reporter";
 
 export default defineConfig({
+  projectId: "y811be",
   e2e: {
     env: {
       isMobile: false,
