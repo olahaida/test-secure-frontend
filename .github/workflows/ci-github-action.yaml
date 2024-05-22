@@ -68,6 +68,7 @@ jobs:
           wait-on-timeout: 60
           browser: firefox
           spec: cypress/e2e/isolation/**
+          config-file: cypress.firefox.config.ts
 
       - uses: actions/upload-artifact@v4
         if: failure()
